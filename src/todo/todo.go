@@ -5,7 +5,25 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
+	"todo-list-api-in-go/src/internal/config"
 )
+
+type Config struct {
+	*config.Config
+}
+
+func New(configuration *config.Config) *Config {
+	return &Config{configuration}
+}
+
+func (config *Config) Routes() *chi.Mux {
+	router := chi.NewRouter()
+	router.Get("/{todoID}", config.GetATodo)
+	router.Delete("/{todoID}", config.DeleteTodo)
+	router.Post("/", config.CreateTodo)
+	router.Get("/", config.GetAllTodos)
+	return router
+}
 
 type Todo struct {
 	Slug  string `json:"slug"`
@@ -13,16 +31,7 @@ type Todo struct {
 	Body  string `json:"body"`
 }
 
-func Routes() *chi.Mux {
-	router := chi.NewRouter()
-	router.Get("/{todoID}", GetATodo)
-	router.Delete("/{todoID}", DeleteTodo)
-	router.Post("/", CreateTodo)
-	router.Get("/", GetAllTodos)
-	return router
-}
-
-func GetATodo(w http.ResponseWriter, r *http.Request) {
+func (config *Config) GetATodo(w http.ResponseWriter, r *http.Request) {
 	todoID := chi.URLParam(r, "todoID")
 	todos := Todo{
 		Slug:  todoID,
@@ -32,19 +41,19 @@ func GetATodo(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, todos) // chi router helper for serializing JSON
 }
 
-func DeleteTodo(w http.ResponseWriter, r *http.Request) {
+func (config *Config) DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	response := make(map[string]string)
 	response["message"] = "TODO deleted succesfully"
 	render.JSON(w, r, response)
 }
 
-func CreateTodo(w http.ResponseWriter, r *http.Request) {
+func (config *Config) CreateTodo(w http.ResponseWriter, r *http.Request) {
 	response := make(map[string]string)
 	response["message"] = "TODO created succesfully"
 	render.JSON(w, r, response)
 }
 
-func GetAllTodos(w http.ResponseWriter, r *http.Request) {
+func (config *Config) GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	todos := []Todo{
 		{
 			Slug:  "slug",
