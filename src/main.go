@@ -7,7 +7,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
-	"github.com/tonyalaribe/todoapi/basestructure/features/todo"
+	"github.com/rickynyairo/todo-list-api-in-go/src/todo"
 )
 
 func Routes() *chi.Mux {
@@ -29,7 +29,7 @@ func main() {
 	router := Routes()
 
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
-		log.Printf("%s\t: %s\n", method, route)
+		log.Printf("%s %s\n", method, route)
 		return nil
 	}
 
