@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
-	configs "github.com/rickynyairo/todo-list-api-in-go/src/internal/config" 
+	configs "github.com/rickynyairo/todo-list-api-in-go/src/config" 
 )
 
 type Config struct {
