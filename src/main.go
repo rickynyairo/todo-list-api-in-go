@@ -7,11 +7,11 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
+	configs "github.com/rickynyairo/todo-list-api-in-go/src/internal/config"
 	"github.com/rickynyairo/todo-list-api-in-go/src/todo"
-	"./internal/config"
 )
 
-func Routes(configuration *config.Config) *chi.Mux {
+func Routes(configuration *configs.Config) *chi.Mux {
 	router := chi.NewRouter()
 	router.Use(
 		render.SetContentType(render.ContentTypeJSON),
@@ -27,7 +27,7 @@ func Routes(configuration *config.Config) *chi.Mux {
 }
 
 func main() {
-	configuration, err := config.New()
+	configuration, err := configs.New()
 	if err != nil {
 		log.Panicln("Configuration error", err)
 	}

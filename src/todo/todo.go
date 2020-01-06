@@ -5,14 +5,14 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
-	"todo-list-api-in-go/src/internal/config"
+	configs "github.com/rickynyairo/todo-list-api-in-go/src/internal/config" 
 )
 
 type Config struct {
-	*config.Config
+	*configs.Config
 }
 
-func New(configuration *config.Config) *Config {
+func New(configuration *configs.Config) *Config {
 	return &Config{configuration}
 }
 
